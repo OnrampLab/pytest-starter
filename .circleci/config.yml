@@ -1,0 +1,76 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@4.1.2
+  python: circleci/python@2.1.1
+  ms-teams-notifier: oktapodia/ms-teams-notifier@3.0.0
+
+parameters:
+  run-schedule:
+    type: boolean
+    default: false
+  environment:
+    type: string
+    default: staging
+
+workflows:
+  test:
+    when:
+      not: << pipeline.parameters.run-schedule >>
+    jobs:
+      - run-test
+
+  nightly-test:
+    when: << pipeline.parameters.run-schedule >>
+    jobs:
+      - run-test
+
+jobs:
+  run-test:
+    docker:
+      - image: cimg/python:3.12
+      - image: selenium/standalone-chrome
+    environment:
+      SELENIUM_CMD_EXECUTOR: "http://localhost:4444/wd/hub"
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup
+      - run:
+          name: Download encrypted config file
+          command: |
+            S3_BUCKET_NAME="starter-dev"
+
+            if [ $CIRCLE_BRANCH == "main" ]; then
+              S3_BUCKET_NAME="starter-staging"
+            fi
+
+            if [ "<< pipeline.parameters.environment >>" == "production" ]; then
+              S3_BUCKET_NAME="starter"
+            fi
+
+            aws s3 cp s3://${S3_BUCKET_NAME}/pytest/encrypted_config.yml encrypted_config.yml
+
+      - run:
+          name: Decrypt config file
+          command: |
+            ENCRYPTED_CONFIG=$(cat encrypted_config.yml)
+            DECRYPTED_CONFIG=$(aws kms decrypt --ciphertext-blob "$ENCRYPTED_CONFIG" --key-id "${KMS_KEY_ID}" --output text --query Plaintext | base64 -d)
+            echo "$DECRYPTED_CONFIG" > config.yml
+
+      - python/install-packages:
+            pkg-manager: poetry
+
+      - run:
+          name: Run tests
+          command: poetry run pytest -n 4 --dist=loadscope --junitxml=test-results/junit.xml
+
+      - ms-teams-notifier/report:
+          only_on_fail: true
+          webhook_url: $MS_TEAMS_WEBHOOK_URL
+
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: screenshots
+          destination: screenshots
