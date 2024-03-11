@@ -1,0 +1,25 @@
+version: '2'
+services:
+  app:
+    build: .
+    depends_on:
+      - selenium
+    environment:
+      - KMS_KEY_ID=${KMS_KEY_ID}
+    volumes:
+      - ~/.aws/credentials:/root/.aws/credentials
+      - .:/project
+    command:
+      >
+        bash -i -c -e
+        "
+        poetry install --no-root;
+        pytest;
+        "
+  selenium:
+    image: selenium/standalone-chrome
+    environment:
+      - VNC_NO_PASSWORD=1 # Don't ask for a password
+      - SE_NODE_SESSION_TIMEOUT=1000
+    ports:
+      - 7900:7900
