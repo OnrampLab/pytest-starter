@@ -1,0 +1,16 @@
+api:
+  api_url: https://staging.starter.com
+accounts:
+  report:
+    id: 1
+    api_token: xxx
+  empty_shell:
+    id: 2
+    api_token: yyy
+users:
+  sys_admin:
+    - email: sys_admin@example.com
+      password: sys_admin_password1
+  analyst:
+    - email: viewer1@example.com
+      password: viewer_password1
