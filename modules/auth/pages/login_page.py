@@ -1,9 +1,9 @@
 from typing import Union
 
+from transstellar.framework import MainConfig
+from transstellar_antd.v5 import Page
 from typing_extensions import Self
 
-from interstellar.framework import MainConfig
-from interstellar_antd import Page
 from modules.dashboard import DashboardPage
 
 

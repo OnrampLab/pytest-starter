@@ -1,6 +1,5 @@
 from injector import inject
-
-from interstellar.framework import ConfigService
+from transstellar.framework import ConfigService
 
 
 class AccountConfig:

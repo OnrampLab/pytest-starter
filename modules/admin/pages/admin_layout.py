@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 
-from interstellar_antd import Page, Spin
+from transstellar_antd.v5 import Page, Spin
 
 from modules.account import AccountConfig
 

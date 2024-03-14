@@ -1,5 +1,5 @@
-from interstellar.api_client import APIClient as BaseAPIClient
-from interstellar.framework import Loggable
+from transstellar.api_client import APIClient as BaseAPIClient
+from transstellar.framework import Loggable
 
 
 class APIClient(BaseAPIClient):

@@ -1,14 +1,14 @@
 from urllib.parse import urlparse
 
-from interstellar_antd import Message, Page, Select
+from transstellar_antd.v5 import Message, Page, Select
 
 from modules.account import AccountConfig
 
 
 class AdminHeader(Page):
-    XPATH_CURRENT = '//header[@class="ant-layout-header"]'
+    XPATH_CURRENT = '//header[contains(@class, "ant-layout-header")]'
     XPATH_AVATAR_IMAGE = '//*[@src="/static/images/avatar.jpg"]'
-    XPATH_SIGNOUT_BUTTON = '//span[text()="Sign out"]'
+    XPATH_SIGNOUT_BUTTON = '//a[text()="Sign Out"]'
 
     def logout(self):
         self.logger.info("logging out")
@@ -25,7 +25,7 @@ class AdminHeader(Page):
 
         current_path = self.get_current_url().path
 
-        assert current_path == "/", f"actual path: {current_path}"
+        assert current_path == "/auth/signin", f"actual path: {current_path}"
 
         self.logger.info("logged out")
 

@@ -1,5 +1,5 @@
 from injector import Injector
-from interstellar.framework import MainConfig
+from transstellar.framework import MainConfig
 
 from ..api_client import APIClient
 

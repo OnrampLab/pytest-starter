@@ -7,8 +7,8 @@ authors = ["Onramplab Dev <dev@onramplab.com>"]
 [tool.poetry.dependencies]
 boto3 = "^1.34.0"
 injector = "^0.21.0"
-interstellar = {git = "https://github.com/OnrampLab/interstellar.git"}
-interstellar-antd = {git = "https://github.com/OnrampLab/interstellar-antd.git"}
+transstellar = {git = "https://github.com/OnrampLab/transstellar.git"}
+transstellar-antd = {git = "https://github.com/OnrampLab/transstellar-antd.git"}
 jsonpath = "^0.82"
 requests = "^2.31.0"
 selenium = "^4.18.0"

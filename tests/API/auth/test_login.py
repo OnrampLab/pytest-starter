@@ -1,6 +1,7 @@
 import pytest
-from interstellar.api_client import UnauthorizedError
-from interstellar.framework import BaseApiTest
+from transstellar.api_client import UnauthorizedError
+from transstellar.framework import BaseApiTest
+
 from modules.auth import AuthAdapter, AuthConfig
 
 

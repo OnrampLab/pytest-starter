@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 
-from interstellar_antd import Page
+from transstellar_antd.v5 import Page
 
 
 class AdminSidebarMenu(Page):

@@ -1,5 +1,5 @@
 import pytest
-from interstellar.framework import BaseUITest as ParentBaseUITest
+from transstellar.framework import BaseUITest as ParentBaseUITest
 
 from modules.auth import LoginPage
 from modules.dashboard import DashboardPage
