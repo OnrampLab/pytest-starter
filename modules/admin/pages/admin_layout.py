@@ -13,8 +13,8 @@ class AdminLayout(Page):
     admin_sidebar_menu: AdminSidebarMenu
 
     def init(self):
-        self.admin_header = self.find_element(AdminHeader)
-        self.admin_sidebar_menu = self.find_element(AdminSidebarMenu)
+        self.admin_header = self.find_global_element(AdminHeader)
+        self.admin_sidebar_menu = self.find_global_element(AdminSidebarMenu)
 
     def __wait_for_loading_disappear__(self):
         self.wait_for_global_element_to_disappear(Spin)
