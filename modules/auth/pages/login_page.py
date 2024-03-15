@@ -16,7 +16,7 @@ class LoginPage(Page):
 
     def login(self, email: str, password: str) -> Union[Self, DashboardPage]:
         main_config = self.injector.get(MainConfig)
-        self.driver.get(main_config.get_api_url())
+        self.driver.get(main_config.get_app_url())
 
         username_input = self.find_dom_element_by_xpath(self.XPATH_EMAIL_INPUT)
         password_input = self.find_dom_element_by_xpath(self.XPATH_PASSWORD_INPUT)

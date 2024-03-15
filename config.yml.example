@@ -1,3 +1,5 @@
+app:
+  app_url: https://staging.starter.com
 api:
   api_url: https://staging.starter.com
 accounts:
