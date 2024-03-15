@@ -22,7 +22,7 @@ class TestLogin(BaseApiTest):
 
         assert type(result["access_token"]) == str
         assert result["token_type"] == "bearer"
-        assert result["expires_in"] == 86400
+        assert result["expires_in"] == 1209600000
 
     def test_failed_login(self):
         config = self.injector.get(AuthConfig)
