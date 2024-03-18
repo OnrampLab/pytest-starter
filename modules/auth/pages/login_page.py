@@ -28,19 +28,20 @@ class LoginPage(Page):
         password_input.send_keys(password)
         login_button.click()
 
-        try:
-            message = self.get_ant_message()
+        message = self.get_ant_message()
 
-            if (
-                "Incorrect email or password" in message
-                or "The token has been blacklisted" in message
-            ):
-                self.status = "failed"
-            else:
-                self.status = "unknown"
-                self.logger.warn(f"unknown login result message: {message}")
+        self.logger.info(message)
 
-            return self
-        except Exception as e:
+        if (
+            "Incorrect email or password" in message
+            or "The token has been blacklisted" in message
+        ):
+            self.status = "failed"
+        elif "Account has been changed" in message:
             dashboard_page: DashboardPage = self.get_page(DashboardPage)
             return dashboard_page
+        else:
+            self.status = "unknown"
+            self.logger.warn(f"unknown login result message: {message}")
+
+        return self
