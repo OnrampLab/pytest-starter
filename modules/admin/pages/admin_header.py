@@ -13,7 +13,7 @@ class AdminHeader(Page):
     def logout(self):
         self.logger.info("logging out")
 
-        img_element = self.find_dom_element_by_xpath(self.XPATH_AVATAR_IMAGE)
+        img_element = self.find_global_dom_element_by_xpath(self.XPATH_AVATAR_IMAGE)
         img_element.click()
 
         signout_element = self.find_global_dom_element_by_xpath(
