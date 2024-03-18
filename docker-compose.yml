@@ -14,7 +14,7 @@ services:
         bash -i -c -e
         "
         poetry install --no-root;
-        pytest;
+        tail -f /dev/null;
         "
   selenium:
     image: selenium/standalone-chrome
