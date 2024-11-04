@@ -5,14 +5,16 @@ api:
 accounts:
   report:
     id: 1
+    name: QA Automation - Report
     api_token: xxx
   empty_shell:
     id: 2
+    name: QA Automation - Empty Shell
     api_token: yyy
 users:
   sys_admin:
-    - email: sys_admin@example.com
-      password: sys_admin_password1
+    email: sys_admin@example.com
+    password: sys_admin_password1
   analyst:
-    - email: viewer1@example.com
-      password: viewer_password1
+    email: viewer1@example.com
+    password: viewer_password1

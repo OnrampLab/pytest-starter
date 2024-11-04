@@ -1,17 +1,19 @@
-from urllib.parse import urlparse
-
 from transstellar_antd.v5 import Message, Page, Select
 
-from modules.account import AccountConfig
+from modules.account import Account
+from modules.core import LoadingPage
 
 
 class AdminHeader(Page):
     XPATH_CURRENT = '//header[contains(@class, "ant-layout-header")]'
     XPATH_AVATAR_IMAGE = '//*[@src="/static/images/avatar.jpg"]'
-    XPATH_SIGNOUT_BUTTON = '//a[text()="Sign Out"]'
+    XPATH_SIGNOUT_BUTTON = '//span[contains(@class, "ant-dropdown-menu-title-content")]//*[text()="Log Out"]'
+
+    def wait_for_ready(self):
+        self.find_global_dom_element_by_xpath(self.XPATH_CURRENT)
 
     def logout(self):
-        self.logger.info("logging out")
+        self.logger.info("Logging out")
 
         img_element = self.find_global_dom_element_by_xpath(self.XPATH_AVATAR_IMAGE)
         img_element.click()
@@ -19,24 +21,42 @@ class AdminHeader(Page):
         signout_element = self.find_global_dom_element_by_xpath(
             self.XPATH_SIGNOUT_BUTTON
         )
+
         signout_element.click()
 
-        self.wait_for_dom_element_to_disappear_by_xpath(self.XPATH_SIGNOUT_BUTTON)
+        loading_page = LoadingPage(self.app)
+        loading_page.wait_for_ready()
 
-        current_path = self.get_current_url().path
+        try:
+            loading_page.wait_for_disappear()
+            current_path = self.app.get_current_url().path
 
-        assert current_path == "/auth/signin", f"actual path: {current_path}"
+            assert current_path == "/auth/signin", f"actual path: {current_path}"
+        except RuntimeError:
+            # TODO: can remove when log out issue is fixed
+            self.logger.info("Too long to log out")
 
-        self.logger.info("logged out")
+        login_page = self.app.go_to("login")
 
-    def switch_account(self, account: AccountConfig):
-        self.logger.info(f"switching account: {account.get_name()}")
+        self.logger.info("Logged out")
 
-        account_label = f"{account.get_name()} (ID: {account.get_id()})"
+        return login_page
+
+    def switch_account(self, account: Account):
+        self.logger.info(f"Switching account: {account.get_name()}")
+
+        account_label = f"{account.get_id()} | {account.get_name()}"
 
         # TODO: it's better to give it an ID to the select
-        self.find_element(Select).select(account_label)
+
+        select = self.find_element(Select)
+
+        if select.get_current_item_title() == account_label:
+            self.logger.info(f"Account is already {account_label}")
+            return
+
+        select.select_by_search(account_label)
 
         ant_message: Message = self.find_global_element(Message)
 
-        self.logger.info(f"message: {ant_message.get_content()}")
+        self.logger.info(f"Message: {ant_message.get_content()}")

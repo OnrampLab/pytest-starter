@@ -1,14 +1,20 @@
-from injector import inject
-import jsonpath
-from modules.core import APIClient
+from modules.core import Adapter
 
-class AuthAdapter:
-    @inject
-    def __init__(self, api_client: APIClient):
-        self.api_client = api_client
+from .entities.user import User
 
-    def login(self, email, password):
-        responseJson = self.api_client.login(email, password)
-        token = jsonpath.jsonpath(responseJson, '$.data')[0]
+
+class AuthAdapter(Adapter):
+    def login(self, email, password) -> str:
+        payload = {"email": email, "password": password}
+        response_json = self.api_client.auth.login(payload)
+
+        token = self.parse_response(response_json)
 
         return token
+
+    def get_current_user(self) -> User:
+        response_json = self.api_client.auth.get_current_user()
+
+        json = self.parse_response(response_json)
+
+        return User(**json)
