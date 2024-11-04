@@ -18,3 +18,7 @@ pytz = "^2024.1"
 pyyaml = "^6.0.1"
 transstellar = "^3.11.0"
 transstellar-antd = "^0.19.3"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.3.1"
+
