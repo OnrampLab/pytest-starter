@@ -7,6 +7,7 @@ from modules.core import LoadingPage
 class AdminHeader(Page):
     XPATH_CURRENT = '//header[contains(@class, "ant-layout-header")]'
     XPATH_AVATAR_IMAGE = '//*[@src="/static/images/avatar.jpg"]'
+    # pylint: disable-next=C0301
     XPATH_SIGNOUT_BUTTON = '//span[contains(@class, "ant-dropdown-menu-title-content")]//*[text()="Log Out"]'
 
     def wait_for_ready(self):
@@ -43,9 +44,9 @@ class AdminHeader(Page):
         return login_page
 
     def switch_account(self, account: Account):
-        self.logger.info(f"Switching account: {account.get_name()}")
+        self.logger.info(f"Switching account: {account.name}")
 
-        account_label = f"{account.get_id()} | {account.get_name()}"
+        account_label = f"{account.id} | {account.name}"
 
         # TODO: it's better to give it an ID to the select
 

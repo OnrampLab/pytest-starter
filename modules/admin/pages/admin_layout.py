@@ -1,5 +1,6 @@
-from modules.account import Account
 from transstellar_antd.v5 import Page
+
+from modules.account import Account
 
 from .admin_header import AdminHeader
 from .admin_sidebar_menu import AdminSidebarMenu

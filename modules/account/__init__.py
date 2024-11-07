@@ -1,10 +1,11 @@
 __all__ = [
+    "AccountAdapter",
     "AccountModule",
-    "AccountConfig",
     "AccountConfigParser",
     "Account",
 ]
 
+from .account_adapter import AccountAdapter
 from .account_module import AccountModule
-from .config import AccountConfig, AccountConfigParser
+from .config import AccountConfigParser
 from .entities.account import Account

@@ -6,8 +6,7 @@ from pydantic import BaseModel
 class Roles(Enum):
     SYSTEM_ADMIN = "system-admin"
     ACCOUNT_ADMIN = "account-admin"
-    CLIENT_OWNER = "client-owner"
-    CLIENT_ANALYST = "client-analyst"
+    ACCOUNT_ANALYST = "account-analyst"
 
 
 class Role(BaseModel):
@@ -20,8 +19,5 @@ class Role(BaseModel):
     def is_account_admin(self):
         return self.name == Roles.ACCOUNT_ADMIN.value
 
-    def is_client_owner(self):
-        return self.name == Roles.CLIENT_OWNER.value
-
-    def is_client_analyst(self):
-        return self.name == Roles.CLIENT_ANALYST.value
+    def is_account_analyst(self):
+        return self.name == Roles.ACCOUNT_ANALYST.value

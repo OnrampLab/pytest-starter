@@ -1,7 +1,7 @@
 from injector import inject
 from transstellar.framework import ConfigService
 
-from .account_config import AccountConfig
+from ..entities.account import Account
 
 
 class AccountConfigParser:
@@ -10,7 +10,7 @@ class AccountConfigParser:
         self.config = config_service.config
 
     def get_report_account(self):
-        return AccountConfig(self.config["accounts"]["report"])
+        return Account(**self.config["accounts"]["report"])
 
     def get_empty_shell_account(self):
-        return AccountConfig(self.config["accounts"]["empty_shell"])
+        return Account(**self.config["accounts"]["empty_shell"])

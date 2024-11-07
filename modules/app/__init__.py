@@ -1,3 +1,3 @@
-__all__ = ["ApplicationBootstrapperLoginPage"]
+__all__ = ["ApplicationBootstrapper"]
 
 from .application_bootstrapper import ApplicationBootstrapper

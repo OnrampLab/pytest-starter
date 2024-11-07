@@ -1,4 +1,3 @@
-from selenium.common.exceptions import TimeoutException
 from transstellar_antd.v5 import Page
 
 

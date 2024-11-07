@@ -1,9 +1,8 @@
-from datetime import datetime
-
 from transstellar_antd.v5 import Page
 
 
 class LoadingPage(Page):
+    # pylint: disable-next=C0301
     XPATH_CURRENT = '//div[contains(@class, "loading-bar-animation")]/ancestor::div[contains(@class, "items-center justify-center")]'
 
     def wait_for_ready(self):

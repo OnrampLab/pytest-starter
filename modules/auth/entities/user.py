@@ -18,8 +18,5 @@ class User(BaseModel):
     def is_account_admin(self):
         return any(role.is_account_admin() for role in self.roles)
 
-    def is_client_owner(self):
-        return any(role.is_client_owner() for role in self.roles)
-
-    def is_client_analyst(self):
-        return any(role.is_client_analyst() for role in self.roles)
+    def is_account_analyst(self):
+        return any(role.is_account_analyst() for role in self.roles)

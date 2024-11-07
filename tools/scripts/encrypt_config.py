@@ -20,10 +20,10 @@ kms_key_id = os.getenv("KMS_KEY_ID")
 session = boto3.Session(profile_name=aws_profile, region_name=aws_region)
 
 
-def encrypt_data(data, kms_key_id):
+def encrypt_data(data, target_kms_key_id):
     kms_client = session.client("kms")
 
-    response = kms_client.encrypt(KeyId=kms_key_id, Plaintext=data)
+    response = kms_client.encrypt(KeyId=target_kms_key_id, Plaintext=data)
 
     return base64.encodebytes(response["CiphertextBlob"])
 
