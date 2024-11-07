@@ -12,9 +12,9 @@ accounts:
     name: QA Automation - Empty Shell
     api_token: yyy
 users:
-  sys_admin:
-    email: sys_admin@example.com
-    password: sys_admin_password1
+  system_admin:
+    email: system_admin@example.com
+    password: system_admin_password1
   analyst:
     email: viewer1@example.com
     password: viewer_password1
