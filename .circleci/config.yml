@@ -61,6 +61,10 @@ jobs:
             pkg-manager: poetry
 
       - run:
+          name: Run Linting
+          command: poetry run pylint */*.py */*/*.py */*/*/*.py
+
+      - run:
           name: Run tests
           command: poetry run pytest -n 4 --dist=loadscope --junitxml=test-results/junit.xml
 
@@ -74,3 +78,7 @@ jobs:
       - store_artifacts:
           path: screenshots
           destination: screenshots
+
+      - store_artifacts:
+          path: logs
+          destination: logs
